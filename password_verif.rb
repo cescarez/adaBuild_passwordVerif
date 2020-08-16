@@ -8,28 +8,42 @@ def invalid_input_message(reason)
   puts "Invalid input. #{reason} Please re-enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
 end 
 
-def check_input(user_input)
-  while !password
-    user_input = gets.chomp
-    if (user_input.length < 8)
-      invalid_input_message("Password length too short.")      
-    elsif ((user_input == user_input.map(&:upcase) || user_input == user_input.map(&:lowercase)))
-      invalid_input_message("Password does not contain both uppercase and lowercase letters.")      
-    elsif
-      user_input.each do |char|
-        until (char == @ || char == % || char == * || char == !)
-          
-        end
-        password_upcase[user_input.index(char)] = char.uppercase
-        password_downcase[user_input.index(char)] = char.lowercase
+#MAIN
+puts "Please enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
+
+while !password
+  user_input = gets.chomp
+  else
+    password_length = special_char_found = number_found = different_cases = false
+    user_input.each do |char|
+      password_upcase[user_input.index(char)] = char.uppercase
+      password_downcase[user_input.index(char)] = char.lowercase
+      if (char == @ || char == % || char == * || char == !)
+        special_char_found = true 
+      elsif ((0..9).contains(char))
+        number_found = true
       end
     end
+    if (user_input.length >= 8)
+      password_length = true
+    end
+    if (password_upcase != user_input && password_downcase != user_input)
+      different_cases = true
+    end
   end
-  return user_input
+  case password_characteristic
+  when !password_length
+    invalid_input_message("Password length too short.")      
+  when !special_char_found
+    invalid_input_message("Password does not contain any special characters.")      
+  when !number_found
+    invalid_input_message("Password does not contain any numbers.")      
+  when !different_cases
+    invalid_input_message("Password does not contain both lowercase and uppercase letters.")      
+  end
 end
-  
-# #MAIN
-# puts "Please enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
+
+puts "Your password has been accepted. Goodbye."
 
 # while (password1 >= 0 && password2 >= 0) 
 #   password2 = password1 + 1 #offset password1 and password2 to enter below loop
