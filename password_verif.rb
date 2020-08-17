@@ -2,18 +2,25 @@
 #Last updated: August 8, 2020
 #Ada Developer's Academy C14
 #Ada Build: Section 4 Assessment: question  l, "Password Verification"
+#sources: https://stackoverflow.com/questions/5235075/how-do-you-put-gets-input-into-an-array
 
 #Functions
 def invalid_input_message(reason)
-  puts "Invalid input. #{reason} Please re-enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
+  puts "Invalid input. Password #{reason}. Please re-enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
 end 
+#fail messages
+not_long = "length is too short."
+no_special_characters = "does not contain any special characters"
+no_numbers = "does not contain any numbers"
+no_different_cases = " does not contain both lowercase and uppercase letters"
 
 #MAIN
 puts "Please enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
 
 password_length = special_char_found = number_found = different_cases = false
-until password_length = special_char_found = number_found = different_cases = true
-  user_input = gets.chomp
+user_input = password_upcase = password_downcase = Array.new
+until password_length == true && special_char_found == true && number_found == true && different_cases == true
+  user_input << gets.chomp
   user_input.each do |char|
     password_upcase[user_input.index(char)] = char.uppercase
     password_downcase[user_input.index(char)] = char.lowercase
@@ -29,14 +36,16 @@ until password_length = special_char_found = number_found = different_cases = tr
   if (password_upcase != user_input && password_downcase != user_input)
     different_cases = true
   end
-  case password_characteristic
-  when !password_length
-    invalid_input_message("Password length too short.")      
-  when !special_char_found
+  if !password_length && !special_char_found && !number_found && !different_cases
+    invalid_input_message("Password length too short, does not contain any special characters, does not contain any numbers, and does not contain both lowercase and uppercase letters.")      
+  end
+  if !special_char_found
     invalid_input_message("Password does not contain any special characters.")      
-  when !number_found
+  end
+  if !number_found
     invalid_input_message("Password does not contain any numbers.")      
-  when !different_cases
+  end
+  if !different_cases
     invalid_input_message("Password does not contain both lowercase and uppercase letters.")      
   end
 end
