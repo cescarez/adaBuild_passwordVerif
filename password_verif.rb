@@ -11,25 +11,23 @@ end
 #MAIN
 puts "Please enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
 
-while !password
+password_length = special_char_found = number_found = different_cases = false
+until password_length = special_char_found = number_found = different_cases = true
   user_input = gets.chomp
-  else
-    password_length = special_char_found = number_found = different_cases = false
-    user_input.each do |char|
-      password_upcase[user_input.index(char)] = char.uppercase
-      password_downcase[user_input.index(char)] = char.lowercase
-      if (char == @ || char == % || char == * || char == !)
-        special_char_found = true 
-      elsif ((0..9).contains(char))
-        number_found = true
-      end
+  user_input.each do |char|
+    password_upcase[user_input.index(char)] = char.uppercase
+    password_downcase[user_input.index(char)] = char.lowercase
+    if (char == "@" || char == "%" || char == "*" || char == "!")
+      special_char_found = true 
+    elsif ((0..9).contains(char))
+      number_found = true
     end
-    if (user_input.length >= 8)
-      password_length = true
-    end
-    if (password_upcase != user_input && password_downcase != user_input)
-      different_cases = true
-    end
+  end
+  if (user_input.length >= 8)
+    password_length = true
+  end
+  if (password_upcase != user_input && password_downcase != user_input)
+    different_cases = true
   end
   case password_characteristic
   when !password_length
