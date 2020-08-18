@@ -3,27 +3,12 @@
 #Ada Developer's Academy C14
 #Ada Build: Section 4 Assessment: question  l, "Password Verification"
 #sources: https://stackoverflow.com/questions/5235075/how-do-you-put-gets-input-into-an-array
-#future implementation: absolutely dreadful code for echoing which password requirements are not being met, definitely fix that; secondly, add ability for user to exit program
-
-
-#Variables
-requirements_msg = "Please re-enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
-#fail messages
-not_long = "length is too short"
-no_special_characters = "does not contain any special characters"
-no_numbers = "does not contain any numbers"
-no_different_cases = "does not contain both lowercase and uppercase letters"
-invalid_characters = "contains invalid character(s)"
-
-#Functions
-def invalid_input_message(reason)
-  puts "Invalid input. Password #{reason}. #{@requirements_msg}"
-end 
+#future implementation: secondly, add ability for user to exit program
 
 #MAIN
-puts "#{requirements_msg}"
 password = false
 until password
+  puts "Please enter a password that is at least 8 characters long and contains at least: one uppercase letter, one lowercase letter, one number, and one special character (@, %, *, or !)."
   password_length = special_char_found = number_found = different_cases = false
   all_valid_characters = true
   uppercase = lowercase = false
@@ -58,165 +43,29 @@ until password
     different_cases = true
   end
 
-#SO UGLY... but it works. Don't look this code block in the eye! Beware! It is a wild beast and does not like being touched...
-  if !all_valid_characters
-    if !password_length 
-      if !special_char_found 
-        if !number_found
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_numbers + ", " + no_different_cases + ", " + invalid_characters)
-          else
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_numbers + ", " + invalid_characters)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_different_cases + ", " + invalid_characters)      
-          else
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + invalid_characters)      
-          end
-        end
-      else
-        if !number_found
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_numbers + ", " + no_different_cases + ", " + invalid_characters)      
-          else
-            invalid_input_message(not_long + ", " + no_numbers + ", " + invalid_characters)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_different_cases + ", " + invalid_characters)      
-          else
-            invalid_input_message(not_long + ", " + invalid_characters)      
-          end
-        end
-      end
-    # else
-    #   if !special_char_found 
-    #     if !number_found
-    #       if !different_cases
-    #         invalid_input_message(no_special_characters + ", " + no_numbers + ", " + no_different_cases + ", " + invalid_characters)      
-    #       else
-    #         invalid_input_message(no_special_characters + ", " + no_numbers + ", " + invalid_characters)      
-    #       end
-    #     else
-    #       if !different_cases
-    #         invalid_input_message(no_special_characters + ", " + no_different_cases + ", " + invalid_characters)   
-    #       else
-    #         invalid_input_message(no_special_characters + ", " + invalid_characters)      
-    #       end
-    #     end
-    #   else
-    #     if !number_found
-    #       if !different_cases
-    #         invalid_input_message(no_numbers + ", " + no_different_cases + ", " + invalid_characters)      
-    #       else
-    #         invalid_input_message(no_numbers + ", " + invalid_characters)      
-    #       end
-    #     else
-    #       if !different_cases
-    #         invalid_input_message(no_different_cases + ", " + invalid_characters)      
-    #       else
-    #         invalid_input_message(invalid_characters)      
-    #       end
-    #     end
-    #   end
-    # end
-    else
-      if !special_char_found 
-        if !number_found
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_numbers + ", " + no_different_cases)      
-          else
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_numbers)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_different_cases)      
-          else
-            invalid_input_message(not_long + ", " + no_special_characters)      
-          end
-        end
-      else
-        if !number_found
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_numbers + ", " + no_different_cases)      
-          else
-            invalid_input_message(not_long + ", " + no_numbers)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_different_cases)      
-          else
-            invalid_input_message(not_long)      
-          end
-        end
-      end
+  if (!all_valid_characters || !password_length || !different_cases || !number_found || !special_char_found)
+    puts "  Invalid password."
+    if !all_valid_characters
+      puts "  - Password contains invalid character(s)."
     end
-    if !password_length 
-      if !special_char_found 
-        if !number_found
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_numbers + ", " + no_different_cases + ", " + invalid_characters)
-          else
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_numbers + ", " + invalid_characters)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + no_different_cases + ", " + invalid_characters)      
-          else
-            invalid_input_message(not_long + ", " + no_special_characters + ", " + invalid_characters)      
-          end
-        end
-      else
-        if !number_found
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_numbers + ", " + no_different_cases + ", " + invalid_characters)      
-          else
-            invalid_input_message(not_long + ", " + no_numbers + ", " + invalid_characters)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(not_long + ", " + no_different_cases + ", " + invalid_characters)      
-          else
-            invalid_input_message(not_long + ", " + invalid_characters)      
-          end
-        end
-      end
-    else
-      if !special_char_found 
-        if !number_found
-          if !different_cases
-            invalid_input_message(no_special_characters + ", " + no_numbers + ", " + no_different_cases)      
-          else
-            invalid_input_message(no_special_characters + ", " + no_numbers)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(no_special_characters + ", " + no_different_cases)      
-          else
-            invalid_input_message(no_special_characters)      
-          end
-        end
-      else
-        if !number_found
-          if !different_cases
-            invalid_input_message(no_numbers + ", " + no_different_cases)      
-          else
-            invalid_input_message(no_numbers)      
-          end
-        else
-          if !different_cases
-            invalid_input_message(no_different_cases)      
-          else
-            password = input_array
-            puts password
-          end
-        end
-      end
+    if !password_length
+      puts "  - Password length is too short."
     end
+    if !different_cases
+      puts "  - Password does not contain both lowercase and uppercase letters."
+    end
+    if !number_found
+      puts "  - Password does not contain any numbers."
+    end
+    if !special_char_found
+      puts "  - Password does not contain any special characters."
+    end
+    puts "\n"
+  else
+    password = input_array.dup
   end
 end
-
+ 
 confirmation_array = Array.new
 until password == confirmation_array
   #for future implentation: exit flag for whole program, not just during password confirmation
