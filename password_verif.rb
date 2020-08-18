@@ -22,28 +22,23 @@ puts "#{requirements_msg}"
 password = false
 until password
   password_length = special_char_found = number_found = different_cases = false
-  #initialized arrays separately -- when initialized in the same line, pushing to upcase would also push to downcase array, and vice versa
+  uppercase = lowercase = false
   input_array = Array.new
-  #alternate implementation to try in the future: check each character against A..Z and a..z; different_cases=true when one present and one absent
-  password_upcase = Array.new 
-  password_downcase = Array.new
 
   input_string = gets.chomp
   input_array = input_string.split('')
   input_array.each do |char|
-    puts char
     if char.to_s == char.to_i.to_s
       number_found = true
-      password_upcase << char
-      password_downcase << char
     else
       if (char == "@" || char == "%" || char == "*" || char == "!")
         special_char_found = true 
-        password_upcase << char
-        password_downcase << char
       else
-        password_upcase << char.upcase
-        password_downcase << char.downcase
+        if (('A'..'Z').include?(char))
+          uppercase = true
+        else (('a'..'z').include?(char))
+          lowercase = true
+        end
       end
     end
   end
@@ -52,7 +47,7 @@ until password
     password_length = true
   end
 
-  if (password_upcase != input_array && password_downcase != input_array)
+  if (uppercase && lowercase)
     different_cases = true
   end
 
