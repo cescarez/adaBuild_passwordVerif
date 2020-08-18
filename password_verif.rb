@@ -19,47 +19,42 @@ end
 
 #MAIN
 puts "#{requirements_msg}"
-password = password_length = special_char_found = number_found = different_cases = false
+password = false
 until password
+  password_length = special_char_found = number_found = different_cases = false
   #initialized arrays separately -- when initialized in the same line, pushing to upcase would also push to downcase array, and vice versa
   input_array = Array.new
+  #alternate implementation to try in the future: check each character against A..Z and a..z; different_cases=true when one present and one absent
   password_upcase = Array.new 
   password_downcase = Array.new
+
   input_string = gets.chomp
   input_array = input_string.split('')
   input_array.each do |char|
     puts char
     if char.to_s == char.to_i.to_s
- 
       number_found = true
-      password_upcase.push(char)
+      password_upcase << char
       password_downcase << char
-      puts "number_found == #{number_found}"
-
     else
       if (char == "@" || char == "%" || char == "*" || char == "!")
         special_char_found = true 
         password_upcase << char
         password_downcase << char
-        puts "special char == #{special_char_found}"
       else
-        puts "hello"
         password_upcase << char.upcase
         password_downcase << char.downcase
       end
     end
-      puts "upcase: #{password_upcase[input_array.index(char)]}"
-      puts "downcase: #{password_downcase[input_array.index(char)]}"
   end
+
   if (input_array.length >= 8)
     password_length = true
   end
-  if (password_upcase != input_array && password_downcase != input_array && password_upcase != password_downcase)
+
+  if (password_upcase != input_array && password_downcase != input_array)
     different_cases = true
   end
-  puts "input: #{input_array}"
-  puts "upcase: #{password_upcase}"
-  puts "downcase: #{password_downcase}"
 
 #SO UGLY... but it works. Don't look this code block in the eye!
   if !password_length 
