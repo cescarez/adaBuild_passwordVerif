@@ -21,17 +21,21 @@ end
 puts "#{requirements_msg}"
 password = password_length = special_char_found = number_found = different_cases = false
 until password
-  input_array = password_upcase = password_downcase = Array.new
+  #initialized arrays separately -- when initialized in the same line, pushing to upcase would also push to downcase array, and vice versa
+  input_array = Array.new
+  password_upcase = Array.new 
+  password_downcase = Array.new
   input_string = gets.chomp
   input_array = input_string.split('')
   input_array.each do |char|
     puts char
-    # if ((char.to_i == 0 && char.to_s == 0) && (0..9).include?(char))
-    if char.to_s.to_i == char.to_i
+    if char.to_s == char.to_i.to_s
+ 
       number_found = true
-      password_upcase << char
+      password_upcase.push(char)
       password_downcase << char
       puts "number_found == #{number_found}"
+
     else
       if (char == "@" || char == "%" || char == "*" || char == "!")
         special_char_found = true 
@@ -141,3 +145,4 @@ puts "Your password has been accepted. Goodbye."
 # puts "Result: #{total}"
   
 
+    # if ((char.to_i == 0 && char.to_s == 0) && (0..9).include?(char))
